@@ -1,0 +1,988 @@
+fileFormatVersion: 2
+guid: e986f700ca4e4cd41bcb02f5ee82ba6a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3647584884180636812
+    second: OfflineUnselected
+  - first:
+      213: 914520692686469932
+    second: OnlineUnselected
+  - first:
+      213: -7856674948236842710
+    second: ExitUnselected
+  - first:
+      213: 1562531093314041671
+    second: OfflineSelected
+  - first:
+      213: -6444238489264180980
+    second: OnlineSelected
+  - first:
+      213: 8556893460279579972
+    second: ExitSelected
+  - first:
+      213: 7659554951902063292
+    second: OfflineUnselected
+  - first:
+      213: -628582748493821777
+    second: OnlineUnselected
+  - first:
+      213: 6371218396198677740
+    second: ExitUnselected
+  - first:
+      213: -2594328784625706508
+    second: OfflineSelected
+  - first:
+      213: -5872507287020959309
+    second: OnlineSelected
+  - first:
+      213: -3203265300436929444
+    second: ExitSelected
+  - first:
+      213: -1595839104674317741
+    second: SPorMP Buttons_6
+  - first:
+      213: 3440457524157567729
+    second: SPorMP Buttons_7
+  - first:
+      213: -103657189797001015
+    second: SPorMP Buttons_8
+  - first:
+      213: -485609276293702612
+    second: SPorMP Buttons_9
+  - first:
+      213: -1968853498664053762
+    second: SPorMP Buttons_10
+  - first:
+      213: -6046789623465844331
+    second: SPorMP Buttons_11
+  - first:
+      213: 6106540286271760126
+    second: SPorMP Buttons_12
+  - first:
+      213: -1194389063553084308
+    second: SPorMP Buttons_13
+  - first:
+      213: -5572097371644987531
+    second: SPorMP Buttons_14
+  - first:
+      213: 4541447743956635919
+    second: SPorMP Buttons_15
+  - first:
+      213: -1101053631501004099
+    second: SPorMP Buttons_16
+  - first:
+      213: -7462719498632562926
+    second: SPorMP Buttons_17
+  - first:
+      213: -1714681353881283948
+    second: SPorMP Buttons_18
+  - first:
+      213: -2939228394999244163
+    second: SPorMP Buttons_19
+  - first:
+      213: 674948355359576277
+    second: SPorMP Buttons_20
+  - first:
+      213: 8004802419062933892
+    second: SPorMP Buttons_21
+  - first:
+      213: -1826672448827429215
+    second: SPorMP Buttons_22
+  - first:
+      213: 8398464692264180392
+    second: SPorMP Buttons_23
+  - first:
+      213: 5573560931891301253
+    second: SPorMP Buttons_24
+  - first:
+      213: 375091003865951006
+    second: SPorMP Buttons_25
+  - first:
+      213: -4217424760121880107
+    second: SPorMP Buttons_26
+  - first:
+      213: -3782852291737185531
+    second: SPorMP Buttons_27
+  - first:
+      213: 6261857330564586586
+    second: SPorMP Buttons_28
+  - first:
+      213: -6654607115053154663
+    second: SPorMP Buttons_29
+  - first:
+      213: -1951265589335779529
+    second: SPorMP Buttons_30
+  - first:
+      213: 242982889542356642
+    second: SPorMP Buttons_31
+  - first:
+      213: 4481463101328057905
+    second: SPorMP Buttons_32
+  - first:
+      213: -3791781750240557921
+    second: SPorMP Buttons_33
+  - first:
+      213: -1508140828345875667
+    second: SPorMP Buttons_34
+  - first:
+      213: -8541692827833973506
+    second: SPorMP Buttons_35
+  - first:
+      213: -5831262738911652160
+    second: SPorMP Buttons_36
+  - first:
+      213: -1759203706391875880
+    second: SPorMP Buttons_37
+  - first:
+      213: -3516566599967687410
+    second: SPorMP Buttons_38
+  - first:
+      213: 238518876456907519
+    second: SPorMP Buttons_39
+  - first:
+      213: -5762277318781424924
+    second: SPorMP Buttons_40
+  - first:
+      213: 192912639086280996
+    second: SPorMP Buttons_41
+  - first:
+      213: -4717788802691769652
+    second: SPorMP Buttons_42
+  - first:
+      213: -8250237603439471897
+    second: SPorMP Buttons_43
+  - first:
+      213: 2400971503619059620
+    second: SPorMP Buttons_44
+  - first:
+      213: -9055494312189637736
+    second: SPorMP Buttons_45
+  - first:
+      213: -6964060085728529398
+    second: SPorMP Buttons_46
+  - first:
+      213: 5933281662915953650
+    second: SPorMP Buttons_47
+  - first:
+      213: 6020672489050478079
+    second: SPorMP Buttons_48
+  - first:
+      213: -8948681596915558134
+    second: SPorMP Buttons_49
+  - first:
+      213: -2657627779252030150
+    second: SPorMP Buttons_50
+  - first:
+      213: -6087776723889747774
+    second: SPorMP Buttons_51
+  - first:
+      213: 7851250963777077520
+    second: SPorMP Buttons_52
+  - first:
+      213: -2796703352762670066
+    second: SPorMP Buttons_53
+  - first:
+      213: -6242211758852546452
+    second: SPorMP Buttons_54
+  - first:
+      213: -757600919368007823
+    second: SPorMP Buttons_55
+  - first:
+      213: 5983103528973708867
+    second: SPorMP Buttons_56
+  - first:
+      213: -6183417187510890694
+    second: SPorMP Buttons_57
+  - first:
+      213: -2915193719414242219
+    second: SPorMP Buttons_58
+  - first:
+      213: 6138886515157734094
+    second: SPorMP Buttons_59
+  - first:
+      213: 3404363092209026573
+    second: SPorMP Buttons_60
+  - first:
+      213: 647389233831370601
+    second: SPorMP Buttons_61
+  - first:
+      213: 1782880300027305381
+    second: SPorMP Buttons_62
+  - first:
+      213: -1181239885197469287
+    second: SPorMP Buttons_63
+  - first:
+      213: -2682866525166731288
+    second: SPorMP Buttons_64
+  - first:
+      213: 4363289407579202383
+    second: SPorMP Buttons_65
+  - first:
+      213: 8902506272868690014
+    second: SPorMP Buttons_66
+  - first:
+      213: -3046606823731556338
+    second: SPorMP Buttons_67
+  - first:
+      213: 4805269620436098704
+    second: SPorMP Buttons_68
+  - first:
+      213: 2481616693708942152
+    second: SPorMP Buttons_69
+  - first:
+      213: -317033423222126279
+    second: SPorMP Buttons_70
+  - first:
+      213: 440435483942655381
+    second: SPorMP Buttons_71
+  - first:
+      213: 1188290480670561126
+    second: SPorMP Buttons_72
+  - first:
+      213: 787443121384924691
+    second: SPorMP Buttons_73
+  - first:
+      213: -912380970376079499
+    second: SPorMP Buttons_74
+  - first:
+      213: -341107200464897259
+    second: SPorMP Buttons_75
+  - first:
+      213: -510281450423668729
+    second: SPorMP Buttons_76
+  - first:
+      213: -3332053922555136320
+    second: SPorMP Buttons_77
+  - first:
+      213: -1337161691373801203
+    second: SPorMP Buttons_78
+  - first:
+      213: 6885001709064012974
+    second: SPorMP Buttons_79
+  - first:
+      213: -7433607747719307127
+    second: SPorMP Buttons_80
+  - first:
+      213: -3064955821766346255
+    second: SPorMP Buttons_81
+  - first:
+      213: -7007954343060464970
+    second: SPorMP Buttons_82
+  - first:
+      213: -7525216129652433247
+    second: SPorMP Buttons_83
+  - first:
+      213: -414875855693288993
+    second: SPorMP Buttons_84
+  - first:
+      213: -6719899519681923803
+    second: SPorMP Buttons_85
+  - first:
+      213: 7666816208972133795
+    second: SPorMP Buttons_86
+  - first:
+      213: 4810084241909571139
+    second: SPorMP Buttons_87
+  - first:
+      213: -3166053700746544019
+    second: SPorMP Buttons_88
+  - first:
+      213: 8530234014103082324
+    second: SPorMP Buttons_89
+  - first:
+      213: 599369186309989457
+    second: SPorMP Buttons_90
+  - first:
+      213: -9199510028966157490
+    second: SPorMP Buttons_91
+  - first:
+      213: 8440727086779817302
+    second: SPorMP Buttons_92
+  - first:
+      213: 779471111341620922
+    second: SPorMP Buttons_93
+  - first:
+      213: -1319826002172015588
+    second: SPorMP Buttons_94
+  - first:
+      213: 2976435728301237687
+    second: SPorMP Buttons_95
+  - first:
+      213: -1969785621532933454
+    second: SPorMP Buttons_96
+  - first:
+      213: -7131843161723995397
+    second: SPorMP Buttons_97
+  - first:
+      213: 5335012418627599968
+    second: SPorMP Buttons_98
+  - first:
+      213: 4681209701314392008
+    second: SPorMP Buttons_99
+  - first:
+      213: 4691667812732700246
+    second: SPorMP Buttons_100
+  - first:
+      213: 4502214448017089786
+    second: SPorMP Buttons_101
+  - first:
+      213: -3916526686694399592
+    second: SPorMP Buttons_102
+  - first:
+      213: 7611987878607794180
+    second: SPorMP Buttons_103
+  - first:
+      213: -6691510587992914806
+    second: SPorMP Buttons_104
+  - first:
+      213: -8370886219672812308
+    second: SPorMP Buttons_105
+  - first:
+      213: -3883154484571460724
+    second: SPorMP Buttons_106
+  - first:
+      213: 4503704854481693559
+    second: SPorMP Buttons_107
+  - first:
+      213: -4275728245778829972
+    second: SPorMP Buttons_108
+  - first:
+      213: 6165987700556705711
+    second: SPorMP Buttons_109
+  - first:
+      213: 8552309950329052492
+    second: SPorMP Buttons_110
+  - first:
+      213: -8284149085414225309
+    second: SPorMP Buttons_111
+  - first:
+      213: 1084963853350125098
+    second: SPorMP Buttons_112
+  - first:
+      213: 8847658884498310302
+    second: SPorMP Buttons_113
+  - first:
+      213: 2981968987994353981
+    second: SPorMP Buttons_114
+  - first:
+      213: -3019501005795092249
+    second: SPorMP Buttons_115
+  - first:
+      213: -7928373636341994212
+    second: SPorMP Buttons_116
+  - first:
+      213: 2751952258062372118
+    second: SPorMP Buttons_117
+  - first:
+      213: -3932777231249001167
+    second: SPorMP Buttons_118
+  - first:
+      213: 8339299492177330734
+    second: SPorMP Buttons_119
+  - first:
+      213: -3191575853100552511
+    second: SPorMP Buttons_120
+  - first:
+      213: 6388737283627318368
+    second: SPorMP Buttons_121
+  - first:
+      213: -7656712787570042682
+    second: SPorMP Buttons_122
+  - first:
+      213: -3416248029775593135
+    second: SPorMP Buttons_123
+  - first:
+      213: -4077961882841102275
+    second: SPorMP Buttons_124
+  - first:
+      213: -386210065904142582
+    second: SPorMP Buttons_125
+  - first:
+      213: -5798682459482383109
+    second: SPorMP Buttons_126
+  - first:
+      213: 3373662768935945185
+    second: SPorMP Buttons_127
+  - first:
+      213: 2400728227448029191
+    second: SPorMP Buttons_128
+  - first:
+      213: -1207242719965111997
+    second: SPorMP Buttons_129
+  - first:
+      213: 2101370205098945615
+    second: SPorMP Buttons_130
+  - first:
+      213: 5368001392483581496
+    second: SPorMP Buttons_131
+  - first:
+      213: -3441243569453487664
+    second: SPorMP Buttons_132
+  - first:
+      213: -2500389276994476940
+    second: SPorMP Buttons_133
+  - first:
+      213: -6160945482913431202
+    second: SPorMP Buttons_134
+  - first:
+      213: -4567872347309747135
+    second: SPorMP Buttons_135
+  - first:
+      213: -8159358086998964301
+    second: SPorMP Buttons_136
+  - first:
+      213: 664437131524073923
+    second: SPorMP Buttons_137
+  - first:
+      213: -4819358976145666906
+    second: SPorMP Buttons_138
+  - first:
+      213: 6105132305289314530
+    second: SPorMP Buttons_139
+  - first:
+      213: 8428296710553467156
+    second: SPorMP Buttons_140
+  - first:
+      213: 6767456454650729735
+    second: SPorMP Buttons_141
+  - first:
+      213: -6822088216646519690
+    second: SPorMP Buttons_142
+  - first:
+      213: 2209081830795101276
+    second: SPorMP Buttons_143
+  - first:
+      213: -8535111428245333581
+    second: SPorMP Buttons_144
+  - first:
+      213: 8592414760441472037
+    second: SPorMP Buttons_145
+  - first:
+      213: -5597976523561411794
+    second: SPorMP Buttons_146
+  - first:
+      213: 7083994893065840700
+    second: SPorMP Buttons_147
+  - first:
+      213: -1531846422326895709
+    second: SPorMP Buttons_148
+  - first:
+      213: -1827270923066512916
+    second: SPorMP Buttons_149
+  - first:
+      213: 416104726013725824
+    second: SPorMP Buttons_150
+  - first:
+      213: 3937416616509255742
+    second: SPorMP Buttons_151
+  - first:
+      213: -8726946870664637952
+    second: SPorMP Buttons_152
+  - first:
+      213: -8577547331254482421
+    second: SPorMP Buttons_153
+  - first:
+      213: -4505897511146957303
+    second: SPorMP Buttons_154
+  - first:
+      213: 3978284244339761500
+    second: SPorMP Buttons_155
+  - first:
+      213: 8768731431006079758
+    second: SPorMP Buttons_156
+  - first:
+      213: -5649621468665914692
+    second: SPorMP Buttons_157
+  - first:
+      213: 3998447439102677260
+    second: SPorMP Buttons_158
+  - first:
+      213: -3518264878192356253
+    second: SPorMP Buttons_159
+  - first:
+      213: -1720413920839648928
+    second: SPorMP Buttons_160
+  - first:
+      213: -4999139924190573232
+    second: SPorMP Buttons_161
+  - first:
+      213: -3569079487610091964
+    second: SPorMP Buttons_162
+  - first:
+      213: -8978260017519688006
+    second: SPorMP Buttons_163
+  - first:
+      213: 5725675049203676321
+    second: SPorMP Buttons_164
+  - first:
+      213: -8396505507600563313
+    second: SPorMP Buttons_165
+  - first:
+      213: -6827156974270072401
+    second: SPorMP Buttons_166
+  - first:
+      213: 5342949905249732950
+    second: SPorMP Buttons_167
+  - first:
+      213: 4247754903224860351
+    second: SPorMP Buttons_168
+  - first:
+      213: 2607906101281275826
+    second: SPorMP Buttons_169
+  - first:
+      213: -1936206692312725420
+    second: SPorMP Buttons_170
+  - first:
+      213: 3551291074849482054
+    second: SPorMP Buttons_171
+  - first:
+      213: -5891676569342410961
+    second: SPorMP Buttons_172
+  - first:
+      213: 7992827634276548707
+    second: SPorMP Buttons_173
+  - first:
+      213: -6300402199721018792
+    second: SPorMP Buttons_174
+  - first:
+      213: -2706711218825822766
+    second: SPorMP Buttons_175
+  - first:
+      213: -802532522048927471
+    second: SPorMP Buttons_176
+  - first:
+      213: -3940901373108600336
+    second: SPorMP Buttons_177
+  - first:
+      213: 4341390343184510248
+    second: SPorMP Buttons_178
+  - first:
+      213: 8905134767090370065
+    second: SPorMP Buttons_179
+  - first:
+      213: 3986803446816683730
+    second: SPorMP Buttons_180
+  - first:
+      213: -1155405442240219391
+    second: SPorMP Buttons_181
+  - first:
+      213: -9207369730502455539
+    second: SPorMP Buttons_182
+  - first:
+      213: -8531464600320836038
+    second: SPorMP Buttons_183
+  - first:
+      213: 8287246166019215210
+    second: SPorMP Buttons_184
+  - first:
+      213: -213325898977939823
+    second: SPorMP Buttons_185
+  - first:
+      213: 2484953256664502810
+    second: SPorMP Buttons_186
+  - first:
+      213: 7589863804669537046
+    second: SPorMP Buttons_187
+  - first:
+      213: -4279246568547990150
+    second: SPorMP Buttons_188
+  - first:
+      213: 1273238450795551372
+    second: SPorMP Buttons_189
+  - first:
+      213: -37313761987352763
+    second: SPorMP Buttons_190
+  - first:
+      213: -7863549218136073223
+    second: SPorMP Buttons_191
+  - first:
+      213: 740647857211858177
+    second: SPorMP Buttons_192
+  - first:
+      213: 8793624171117001322
+    second: SPorMP Buttons_193
+  - first:
+      213: -8790286839849336747
+    second: SPorMP Buttons_194
+  - first:
+      213: 3135694286610655542
+    second: SPorMP Buttons_195
+  - first:
+      213: 8931934309189943666
+    second: SPorMP Buttons_196
+  - first:
+      213: -5185494503998251980
+    second: SPorMP Buttons_197
+  - first:
+      213: 8356121994590562921
+    second: SPorMP Buttons_198
+  - first:
+      213: -7294961976191476697
+    second: SPorMP Buttons_199
+  - first:
+      213: -5568915217297000903
+    second: SPorMP Buttons_200
+  - first:
+      213: 2509632507830082908
+    second: SPorMP Buttons_201
+  - first:
+      213: 4352618662487496454
+    second: SPorMP Buttons_202
+  - first:
+      213: -1092468665209470064
+    second: SPorMP Buttons_203
+  - first:
+      213: 6923820911590755224
+    second: SPorMP Buttons_204
+  - first:
+      213: -691301859384496957
+    second: SPorMP Buttons_205
+  - first:
+      213: 547861133752074661
+    second: SPorMP Buttons_206
+  - first:
+      213: -3826485838004444682
+    second: SPorMP Buttons_207
+  - first:
+      213: -5744186354802570451
+    second: SPorMP Buttons_208
+  - first:
+      213: -6372124653574245654
+    second: SPorMP Buttons_209
+  - first:
+      213: 3634687297806353985
+    second: SPorMP Buttons_210
+  - first:
+      213: 3707266253980398005
+    second: SPorMP Buttons_211
+  - first:
+      213: -601719707533496115
+    second: SPorMP Buttons_212
+  - first:
+      213: -5181255444997756536
+    second: SPorMP Buttons_213
+  - first:
+      213: -5828336231962310260
+    second: SPorMP Buttons_214
+  - first:
+      213: 4050873927528571670
+    second: SPorMP Buttons_215
+  - first:
+      213: 7497990691983457683
+    second: SPorMP Buttons_216
+  - first:
+      213: -3168767521530233713
+    second: SPorMP Buttons_217
+  - first:
+      213: -3244396037405909158
+    second: SPorMP Buttons_218
+  - first:
+      213: -6719756191133638852
+    second: SPorMP Buttons_219
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 588, y: 735, z: 1799, w: 34}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: 0
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Lumin
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: OfflineUnselected
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 728
+        width: 575
+        height: 239
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbae4bd85a43c4a60800000000000000
+      internalID: 7659554951902063292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OnlineUnselected
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 715
+        width: 575
+        height: 260
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa846141253d647f0800000000000000
+      internalID: -628582748493821777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ExitUnselected
+      rect:
+        serializedVersion: 2
+        x: 1225
+        y: 714
+        width: 575
+        height: 260
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cec2bdb006d1b6850800000000000000
+      internalID: 6371218396198677740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OfflineSelected
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 415
+        width: 575
+        height: 260
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f950d937b71ffbd0800000000000000
+      internalID: -2594328784625706508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OnlineSelected
+      rect:
+        serializedVersion: 2
+        x: 618
+        y: 409
+        width: 575
+        height: 260
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b909308cb9a08ea0800000000000000
+      internalID: -5872507287020959309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ExitSelected
+      rect:
+        serializedVersion: 2
+        x: 1223
+        y: 412
+        width: 575
+        height: 260
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c543f1e4e27bb83d0800000000000000
+      internalID: -3203265300436929444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline:
+    - - {x: -1492, y: 200}
+      - {x: -1492, y: 469}
+      - {x: -905, y: 469}
+      - {x: -905, y: 200}
+    - - {x: -630, y: 390}
+      - {x: -630, y: 401}
+      - {x: -625, y: 401}
+      - {x: -625, y: 390}
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

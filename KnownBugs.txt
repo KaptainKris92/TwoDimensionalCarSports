@@ -1,0 +1,1 @@
+- Animation for 2nd jump causes errors, unless double jumping very quickly, because it deletes the clone for the 1st jump animation object, which usually has already been destroyed.
