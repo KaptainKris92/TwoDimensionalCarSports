@@ -4,16 +4,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
-
+using UnityEngine.InputSystem.Utilities;
 
 public class Player2Controller2 : MonoBehaviour
 {
-    public GameObject boostAnimation;
+    //Controls inputs
+    [SerializeField] private InputActionAsset playerControls;
+    private InputAction carMovementAction;
+    private InputAction jumpAction;
+    private InputAction flipAction;
+    private InputAction boostAction;
+    private InputAction flipDirectionAction;
 
+    public float AccInput { get; set; }
+    public bool isBoostPressed;
+
+    //Jump animation stuff
+    private Animator animClone;
+    private Animator animClone2;
+    private GameObject jumpAnimClone;
+    private GameObject jumpAnimClone2;
+    public GameObject jumpAnimObject;
+
+    // Output for jump animation script
+    public int jumpCount = 0;
+    public bool boostPressed;
+
+    //Boost animation stuff
+    /*public GameObject boostAnimation;*/
+    private Animator boostAnim;
+    public GameObject boostAnimObject;
+
+    
     // Ground speed
     public float Speed = 0;
-    public float maxSpeed = 50f;
-    public float Acceleration = 20f; //How fast object reaches max speed
+    public float maxSpeed = 5f;
+    public float Acceleration = 75f; //How fast object reaches max speed
 
     // Checking if grounded
     public bool grounded = false;
@@ -26,72 +52,99 @@ public class Player2Controller2 : MonoBehaviour
     public float vSpeed;  //Vertical speed
     public float rotation; //X axis rotation
     public Vector2 CarSpeed;
-
     public float rotationSpeed = 5;
-    [SerializeField] public float jumpForce = 2000;
-    [SerializeField] public float boostForce = 75f;
+    public float jumpForce = 2000;
+    public float boostForce = 75f;
     private bool doubleJump = false;
     public float flipForce = 1500;
     public float flipRotateForce = 100;
 
-
-    public bool facingRight = false;
+    // Checks car orientation
+    public bool facingRight = true;
     public bool upright = true;
 
-    private bool upFlipKeyboard = false;
-    private bool downFlipKeyboard = false;
+    private bool upFlipDirection = false;
+    private bool downFlipDirection = false;
     private bool usedFlip = false;
 
-    // Output for jump animation script
-    public int jumpCount = 0;
-    public bool boostPressed;
-
+    private void OnEnable()
+    {
+        playerControls.Enable();
+    }
+    private void OnDisable()
+    {
+        playerControls.Disable();
+    }
     public void FixedUpdate()
     {
         InitialisingVariables();
         Rotate();
-        KeyboardAccelerate();
-        KeyboardDeccelerate();
-        Boost();
+        Boosting();
+        AccInputControl();
     }
     public void Update()
     {
         checkUpright();
         CheckGrounded();
-        CarJumping();
-        VerticalFlipping();
         UpFlipCheck();
         DownFlipCheck();
-        DoubleJumpFlipKeyboard();
     }
     public IEnumerator SecondWait()
     {
         yield return new WaitForSeconds(0.05f);
         grounded = false;
-        jumpCount = jumpCount+1;
+        jumpCount += 1;
     } // Waits momentarily after player jumps, then registers them as not grounded. Needed for jump animation & flips to function properly
     private IEnumerator SecondWait2()
     {
         yield return new WaitForSeconds(0.05f);
         usedFlip = true;
     } // Waits momentarily after flip, then registers that the double jump flip has been used.
-    public void VerticalFlipping() // "," key or "R1" flips the car upside down only if wheels are not touching the ground
+    private void Awake()
     {
-        var gamepad = Gamepad.current;
-        var keyboard = Keyboard.current;
+        var gameplayActionMap = playerControls.FindActionMap("GameplayP2");
+        jumpAnimObject = GameObject.Find("Jump animation 2");
+        boostAnimObject = GameObject.Find("Boost animation 2");
+        carMovementAction = gameplayActionMap.FindAction("CarMovement");
+        jumpAction = gameplayActionMap.FindAction("Jump");
+        boostAction = gameplayActionMap.FindAction("Boost");
+        flipAction = gameplayActionMap.FindAction("FlipCar");
+        flipDirectionAction = gameplayActionMap.FindAction("FlipDirection");
 
-        if (!grounded && (gamepad.rightShoulder.wasPressedThisFrame | keyboard.commaKey.wasPressedThisFrame))
-        {
-            VerticalFlip();
-            facingRight = !facingRight;
-        }
+        carMovementAction.performed += OnCarMovement;
+        carMovementAction.canceled += OnCarMovement;
+        jumpAction.performed += OnJump;
+        jumpAction.canceled -= OnJump;
+        boostAction.started += OnBoostOn;
+        boostAction.performed += OnBoostOn;
+        boostAction.canceled += OnBoostOff;
+        flipAction.performed += OnFlip;
+        flipDirectionAction.performed += OnFlipDirection;
+        flipDirectionAction.canceled += OnFlipDirection;
+
+        isBoostPressed = false;
     }
-    public void CarJumping() // Jumping  with "/" on keyboard or "X" on controller    
+    public void UpFlipCheck() //Checks if up arrow key held + jump (slash key) pressed 
     {
-        var gamepad = Gamepad.current;
-        var keyboard = Keyboard.current;
-
-        if ((grounded || !doubleJump) && (gamepad.buttonSouth.wasPressedThisFrame | keyboard.slashKey.wasPressedThisFrame) && !facingRight)
+        if (FlipDirection.y > 0) upFlipDirection = true;
+        else upFlipDirection = false;
+    }
+    public void DownFlipCheck()  //Checks if down arrow key held + jump (slash key) pressed 
+    {
+        if (FlipDirection.y < 0) downFlipDirection = true;
+        else downFlipDirection = false;
+    }
+    public Vector2 Direction { get; set; } //CarMovement x and y input
+    public Vector2 FlipDirection { get; set; } //CarMovement x and y input
+    public void OnCarMovement(InputAction.CallbackContext context)
+    {
+        var direction = context.ReadValue<Vector2>();
+        Direction = new Vector2(direction.x, direction.y);
+    }
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        //Player movement
+        if ((grounded || !doubleJump) && facingRight)
         {
             GetComponent<Rigidbody2D>().AddForce(transform.up * jumpForce);
 
@@ -102,68 +155,127 @@ public class Player2Controller2 : MonoBehaviour
                 doubleJump = true;
                 StartCoroutine(SecondWait2());
             }
-
         }
 
-        if ((grounded || !doubleJump) && (gamepad.buttonSouth.wasPressedThisFrame | keyboard.slashKey.wasPressedThisFrame) && facingRight)
+        if ((grounded || !doubleJump) && !facingRight)
         {
-
             GetComponent<Rigidbody2D>().AddForce(-transform.up * jumpForce);
             StartCoroutine(SecondWait());
-
-            /*Jumping = true;*/
 
             if (!doubleJump && !grounded)
             {
                 doubleJump = true;
-
             }
         }
-    }
-    public void Boost() //Boost with "." on keyboard or "Circle" on controller
-    {
-        var gamepad = Gamepad.current;
-        var keyboard = Keyboard.current;
 
-        if ((gamepad.buttonEast.wasPressedThisFrame | keyboard.periodKey.wasPressedThisFrame))
+        //Jump animation
+        if (jumpCount == 0 && !facingRight)
         {
-            GetComponent<Rigidbody2D>().AddForce(-transform.right * boostForce);
+            jumpAnimClone = Instantiate(jumpAnimObject, transform.position, transform.rotation);
+            animClone = jumpAnimClone.GetComponent<Animator>();
+            animClone.SetBool("IsJumping", true);
+        }
+        else if (jumpCount == 1 && !facingRight)
+        {
+            Destroy(jumpAnimClone, 0.05f);
+            animClone.SetBool("IsJumping", false);
+            jumpAnimClone2 = Instantiate(jumpAnimObject, transform.position, transform.rotation);
+            animClone2 = jumpAnimClone2.GetComponent<Animator>();
+            animClone2.SetBool("IsJumping", true);
+            Destroy(jumpAnimClone2, 0.5f);
+        }
+        if (jumpCount == 0 && facingRight)
+        {
+            jumpAnimClone = Instantiate(jumpAnimObject, transform.position, transform.rotation * Quaternion.Euler(180f, 0f, 0f));
+            animClone = jumpAnimClone.GetComponent<Animator>();
+            animClone.SetBool("IsJumping", true);
+        }
+        else if (jumpCount == 1 && facingRight)
+        {
+            Destroy(jumpAnimClone, 0.05f);
+            animClone.SetBool("IsJumping", false);
+            jumpAnimClone2 = Instantiate(jumpAnimObject, transform.position, transform.rotation * Quaternion.Euler(180f, 0f, 0f));
+            animClone2 = jumpAnimClone2.GetComponent<Animator>();
+            animClone2.SetBool("IsJumping", true);
+            Destroy(jumpAnimClone2, 0.5f);
         }
 
-        if ((gamepad.buttonEast.isPressed | keyboard.periodKey.isPressed))
-        {
-            GetComponent<Rigidbody2D>().AddForce(-transform.right * boostForce);
-        }
-    }
-    public void DoubleJumpFlipKeyboard() //Forward or backwards flip performed by pressing the jump button and holding up on the joysick (controller) or holding accelerate (keyboard) while in the air
-    {
-        var gamepad = Gamepad.current;
-        var keyboard = Keyboard.current;
-
-        if ((keyboard.slashKey.wasPressedThisFrame | gamepad.buttonSouth.wasPressedThisFrame) && upFlipKeyboard && !grounded && facingRight && !usedFlip)
-        {
-            GetComponent<Rigidbody2D>().AddTorque(-flipRotateForce * 100, ForceMode2D.Force);
-            GetComponent<Rigidbody2D>().AddForce(-transform.right * flipForce);
-            StartCoroutine(SecondWait2());
-        }
-        else if ((keyboard.slashKey.wasPressedThisFrame | gamepad.buttonSouth.wasPressedThisFrame) && downFlipKeyboard && !grounded && facingRight && !usedFlip)
-        {
-            GetComponent<Rigidbody2D>().AddTorque(flipRotateForce * 100, ForceMode2D.Force);
-            GetComponent<Rigidbody2D>().AddForce(transform.right * flipForce);
-            StartCoroutine(SecondWait2());
-        }
-        else if ((keyboard.slashKey.wasPressedThisFrame | gamepad.buttonSouth.wasPressedThisFrame) && downFlipKeyboard && !grounded && !facingRight && !usedFlip)
-        {
-            GetComponent<Rigidbody2D>().AddTorque(-flipRotateForce * 100, ForceMode2D.Force);
-            GetComponent<Rigidbody2D>().AddForce(transform.right * flipForce);
-            StartCoroutine(SecondWait2());
-        }
-        else if ((keyboard.slashKey.wasPressedThisFrame | gamepad.buttonSouth.wasPressedThisFrame) && upFlipKeyboard && !grounded && !facingRight && !usedFlip)
+        //Double jump flip
+        if (upFlipDirection && !grounded && facingRight && !usedFlip)
         {
             GetComponent<Rigidbody2D>().AddTorque(flipRotateForce * 100, ForceMode2D.Force);
             GetComponent<Rigidbody2D>().AddForce(-transform.right * flipForce);
             StartCoroutine(SecondWait2());
         }
+        else if (downFlipDirection && !grounded && facingRight && !usedFlip)
+        {
+            GetComponent<Rigidbody2D>().AddTorque(-flipRotateForce * 100, ForceMode2D.Force);
+            GetComponent<Rigidbody2D>().AddForce(transform.right * flipForce);
+            StartCoroutine(SecondWait2());
+        }
+        else if (upFlipDirection && !grounded && !facingRight && !usedFlip)
+        {
+            GetComponent<Rigidbody2D>().AddTorque(-flipRotateForce * 100, ForceMode2D.Force);
+            GetComponent<Rigidbody2D>().AddForce(-transform.right * flipForce);
+            StartCoroutine(SecondWait2());
+        }
+        else if (downFlipDirection && !grounded && !facingRight && !usedFlip)
+        {
+            GetComponent<Rigidbody2D>().AddTorque(flipRotateForce * 100, ForceMode2D.Force);
+            GetComponent<Rigidbody2D>().AddForce(transform.right * flipForce);
+            StartCoroutine(SecondWait2());
+        }
+    }
+    public void OnBoostOn(InputAction.CallbackContext context)
+    {
+        isBoostPressed = true;
+    }
+    public void OnBoostOff(InputAction.CallbackContext context)
+    {
+        isBoostPressed = false;
+    }
+    public void Boosting()
+    {
+        boostAnim = boostAnimObject.GetComponent<Animator>();
+        if (isBoostPressed)
+        {
+            GetComponent<Rigidbody2D>().AddForce(-transform.right * boostForce);
+            boostAnim.SetBool("IsBoosting", true);
+        }
+        else boostAnim.SetBool("IsBoosting", false);
+    }
+    public void OnFlip(InputAction.CallbackContext context)
+    {
+        if (!grounded)
+        {
+            upright = !upright;
+            Vector3 theScale2 = transform.localScale;
+            theScale2.y *= -1;
+            transform.localScale = theScale2;
+            facingRight = !facingRight;
+        }
+    }
+    public void AccInputControl()
+    {
+        if (grounded)
+        {
+            GetComponent<Rigidbody2D>().AddForce(transform.right * Acceleration * -Direction.y);
+        }
+    }
+    public void Rotate()
+    {
+        if (!grounded)
+        {
+            GetComponent<Rigidbody2D>().AddTorque(rotationSpeed * -Direction.x * 5, ForceMode2D.Force);
+            transform.Rotate(0, 0, -Direction.x * rotationSpeed);
+        }
+    } // Rotate the car using "left" & "right" arrow keys, or the x axis of left stick on gamepad
+    public void InitialisingVariables()
+    {
+        grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround) && Physics2D.OverlapCircle(groundCheck2.position, groundRadius, whatIsGround); // Checking if grounded — Returns if colliders are present
+        rotation = (GetComponent<Rigidbody2D>().rotation); // Angle of the car
+        vSpeed = (GetComponent<Rigidbody2D>().velocity.y); // Vertical velocity
+        CarSpeed = GetComponent<Rigidbody2D>().velocity; // Speed of the car
     }
     public void CheckGrounded() // Resets double jump, flip, and jump animation
     {
@@ -175,75 +287,6 @@ public class Player2Controller2 : MonoBehaviour
             jumpCount = 0;
         }
     }
-    public void UpFlipCheck() //Checks if up arrow key held + jump (slash key) pressed 
-    {
-        var gamepad = Gamepad.current;
-        var keyboard = Keyboard.current;
-
-        if (keyboard.upArrowKey.isPressed | gamepad.leftStick.up.isPressed) upFlipKeyboard = true;
-        else upFlipKeyboard = false;
-    }
-    public void DownFlipCheck()  //Checks if down arrow key held + jump (slash key) pressed 
-    {
-        var gamepad = Gamepad.current;
-        var keyboard = Keyboard.current;
-
-        if (keyboard.downArrowKey.isPressed | gamepad.leftStick.down.isPressed) downFlipKeyboard = true;
-        else downFlipKeyboard = false;
-    }
-    public void KeyboardAccelerate() // Binary acceleration 
-    {
-        var gamepad = Gamepad.current;
-        var keyboard = Keyboard.current;
-
-        if (grounded && (gamepad.rightTrigger.isPressed | keyboard.upArrowKey.isPressed))
-        {
-            GetComponent<Rigidbody2D>().AddForce(-transform.right * Acceleration);
-        }
-    }
-    public void KeyboardDeccelerate() // Binary deceleration
-    {
-        var gamepad = Gamepad.current;
-        var keyboard = Keyboard.current;
-
-        if (grounded && (gamepad.leftTrigger.isPressed | keyboard.downArrowKey.isPressed) && (vSpeed < maxSpeed))
-        {
-            GetComponent<Rigidbody2D>().AddForce(transform.right * Acceleration);
-        }
-    }
-    public void InitialisingVariables()
-    {
-        grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround) && Physics2D.OverlapCircle(groundCheck2.position, groundRadius, whatIsGround); // Checking if grounded — Returns if colliders are present
-        rotation = (GetComponent<Rigidbody2D>().rotation); // Angle of the car
-        vSpeed = (GetComponent<Rigidbody2D>().velocity.y); // Vertical velocity
-        CarSpeed = GetComponent<Rigidbody2D>().velocity; // Speed of the car
-    }
-    public void Rotate()
-    {
-        var gamepad = Gamepad.current;
-        var keyboard = Keyboard.current;
-
-        // Car rotation with controller
-        float rotate = -gamepad.leftStick.x.ReadValue();
-
-        if (!grounded)
-        {
-            GetComponent<Rigidbody2D>().AddTorque(rotationSpeed * rotate * 5, ForceMode2D.Force);
-            transform.Rotate(0, 0, rotate * rotationSpeed);
-        }
-
-        //Car rotation with keyboard
-        float rotate2;
-        if (keyboard.rightArrowKey.isPressed) rotate2 = -1;
-        else if (keyboard.leftArrowKey.isPressed) rotate2 = 1;
-        else rotate2 = 0;
-
-        if (!grounded)
-        {
-            GetComponent<Rigidbody2D>().AddTorque(rotationSpeed * rotate2 * 5, ForceMode2D.Force);
-            transform.Rotate(0, 0, rotate2 * rotationSpeed);
-        }
-    } // Rotate the car using "left" & "right" arrow keys, or the x axis of left stick on gamepad
     public void checkUpright() //Checking if upright
     {
         if ((rotation < -140) && (rotation > -190))
@@ -257,11 +300,9 @@ public class Player2Controller2 : MonoBehaviour
             upright = false;
         }
     }
-    public void VerticalFlip() // Flips car vertically (Transforms -1 on y-axis)
+    public void OnFlipDirection(InputAction.CallbackContext context)
     {
-        upright = !upright;
-        Vector3 theScale2 = transform.localScale;
-        theScale2.y *= -1;
-        transform.localScale = theScale2;
-    }
+        var direction = context.ReadValue<Vector2>();
+        FlipDirection = new Vector2(direction.x, direction.y);
+    } //Checking if Up or Down "FlipDirection" inputs are held
 }
