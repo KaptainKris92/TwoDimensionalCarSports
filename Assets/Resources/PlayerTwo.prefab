@@ -41,10 +41,8 @@ GameObject:
   - component: {fileID: 1644468402250844298}
   - component: {fileID: 1644468402250844299}
   - component: {fileID: 1644468402250844300}
-  - component: {fileID: 1644468402250844301}
-  - component: {fileID: 1644468402250844297}
-  - component: {fileID: 1644468402250844343}
-  - component: {fileID: 1644468402250844296}
+  - component: {fileID: 6743617361024327445}
+  - component: {fileID: 4268683156227454281}
   m_Layer: 12
   m_Name: PlayerTwo
   m_TagString: Untagged
@@ -176,35 +174,7 @@ PolygonCollider2D:
       - {x: -0.670444, y: 0.22688867}
       - {x: -0.8703322, y: 0.22874875}
       - {x: -1.9813673, y: 0.26487303}
---- !u!114 &1644468402250844301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1644468402250844302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7b1346b84820044b8325ae3adadef76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 0
-  maxSpeed: 5
-  Acceleration: 75
-  groundCheck: {fileID: 1644468402215826491}
-  groundCheck2: {fileID: 1644468402717651709}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 2816
-  vSpeed: 0
-  rotation: 0
-  rotationSpeed: 5
-  jumpForce: 1500
-  boostForce: 75
-  flipForce: 1500
-  flipRotateForce: 100
-  Jumping: 0
---- !u!114 &1644468402250844297
+--- !u!114 &6743617361024327445
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,7 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightScored: 0
   leftScored: 0
---- !u!114 &1644468402250844343
+--- !u!114 &4268683156227454281
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -227,34 +197,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 1644468402250844302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e63ac0176d9699468bad995ce3b03a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 1644468402250844296}
-  viewIdField: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &1644468402250844296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1644468402250844302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
+  playerControls: {fileID: -944628639613478452, guid: 91e19b42cbdaaf640b0c5f751b371fe9,
+    type: 3}
+  isBoostPressed: 0
+  jumpAnimObject: {fileID: 0}
+  jumpCount: 0
+  boostPressed: 0
+  boostAnimObject: {fileID: 0}
+  Speed: 0
+  maxSpeed: 5
+  Acceleration: 75
+  grounded: 0
+  groundCheck: {fileID: 1644468402215826491}
+  groundCheck2: {fileID: 1644468402717651709}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 512
+  vSpeed: 0
+  rotation: 0
+  CarSpeed: {x: 0, y: 0}
+  rotationSpeed: 5
+  jumpForce: 2000
+  boostForce: 75
+  flipForce: 1500
+  flipRotateForce: 100
+  facingRight: 1
+  upright: 1
 --- !u!1 &1644468402396802447
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,7 +510,6 @@ GameObject:
   - component: {fileID: 1644468403259846060}
   - component: {fileID: 1644468403259846057}
   - component: {fileID: 1644468403259846058}
-  - component: {fileID: 1644468403259846059}
   m_Layer: 8
   m_Name: Jump animation 2
   m_TagString: Untagged
@@ -630,19 +600,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1644468403259846059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1644468403259846061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bec21ee2277bdf34ea4388ca417a4a07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Jumped: 0
 --- !u!1 &1644468404083314388
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +611,6 @@ GameObject:
   - component: {fileID: 1644468404083314387}
   - component: {fileID: 1644468404083314384}
   - component: {fileID: 1644468404083314385}
-  - component: {fileID: 1644468404083314386}
   m_Layer: 0
   m_Name: Boost animation 2
   m_TagString: Untagged
@@ -745,15 +701,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1644468404083314386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1644468404083314388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ce8d1b3ee24b074c92d61f7ae8aa969, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
