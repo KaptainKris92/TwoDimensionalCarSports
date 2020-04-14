@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 751cca80211a7fa4ba67236ee311754d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerIndex: 0
+  playerIndex: 1
   playerControls: {fileID: -944628639613478452, guid: 91e19b42cbdaaf640b0c5f751b371fe9,
     type: 3}
   isBoostPressed: 0
@@ -503,7 +503,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 05792a1a567a1cb4a81dd3408f157b9a, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 1
+  m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
