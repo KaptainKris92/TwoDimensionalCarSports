@@ -42,7 +42,8 @@ GameObject:
   - component: {fileID: 1644468402250844299}
   - component: {fileID: 1644468402250844300}
   - component: {fileID: 6743617361024327445}
-  - component: {fileID: 4268683156227454281}
+  - component: {fileID: 4113114973740378737}
+  - component: {fileID: 8580171153170559687}
   m_Layer: 12
   m_Name: PlayerTwo
   m_TagString: Untagged
@@ -188,7 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightScored: 0
   leftScored: 0
---- !u!114 &4268683156227454281
+--- !u!114 &4113114973740378737
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -197,9 +198,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1644468402250844302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e63ac0176d9699468bad995ce3b03a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 751cca80211a7fa4ba67236ee311754d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerIndex: 2
   playerControls: {fileID: -944628639613478452, guid: 91e19b42cbdaaf640b0c5f751b371fe9,
     type: 3}
   isBoostPressed: 0
@@ -226,6 +228,37 @@ MonoBehaviour:
   flipRotateForce: 100
   facingRight: 1
   upright: 1
+--- !u!114 &8580171153170559687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644468402250844302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 91e19b42cbdaaf640b0c5f751b371fe9,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: GameplayP2
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1644468402396802447
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,7 +431,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1644468402717651709}
   m_Layer: 12
-  m_Name: GroundCheck 2
+  m_Name: GroundCheck2
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -511,7 +544,7 @@ GameObject:
   - component: {fileID: 1644468403259846057}
   - component: {fileID: 1644468403259846058}
   m_Layer: 8
-  m_Name: Jump animation 2
+  m_Name: Jump animation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -591,7 +624,7 @@ Animator:
   m_GameObject: {fileID: 1644468403259846061}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9aff5a09c3a0de542b266c312c7e8754, type: 2}
+  m_Controller: {fileID: 9100000, guid: bdf47c44b416d494d9907f93b13e4036, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -612,7 +645,7 @@ GameObject:
   - component: {fileID: 1644468404083314384}
   - component: {fileID: 1644468404083314385}
   m_Layer: 0
-  m_Name: Boost animation 2
+  m_Name: Boost animation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -692,9 +725,9 @@ Animator:
   m_GameObject: {fileID: 1644468404083314388}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e8513b9c5516c9d4e865afbcd3134da9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 05792a1a567a1cb4a81dd3408f157b9a, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 1
+  m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 

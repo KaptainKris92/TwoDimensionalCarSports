@@ -10,15 +10,14 @@ public class Player1Controller2 : MonoBehaviour
 {
 
     //Controls inputs
-    [SerializeField] private int playerIndex = 0;
+    [SerializeField] public int playerIndex;
     [SerializeField] private InputActionAsset playerControls;
     private InputAction carMovementAction;
     private InputAction jumpAction;
     private InputAction flipAction;
     private InputAction boostAction;
     private InputAction flipDirectionAction;
-    
-
+   
     public float AccInput { get; set; }
     public bool isBoostPressed; 
 
@@ -73,7 +72,7 @@ public class Player1Controller2 : MonoBehaviour
     {
         return playerIndex;
     }
-
+    
     private void OnEnable()
     {
         playerControls.Enable();
@@ -94,7 +93,7 @@ public class Player1Controller2 : MonoBehaviour
         checkUpright();
         CheckGrounded();
         UpFlipCheck();
-        DownFlipCheck();
+        DownFlipCheck();        
     }
     public IEnumerator SecondWait()
     {
@@ -109,10 +108,9 @@ public class Player1Controller2 : MonoBehaviour
     } // Waits momentarily after flip, then registers that the double jump flip has been used.
     private void Awake()
     {
-
-        var gameplayActionMap = playerControls.FindActionMap("GameplayP1");
-        jumpAnimObject = GameObject.Find("Jump animation");
-        boostAnimObject = GameObject.Find("Boost animation");
+        var gameplayActionMap = playerControls.FindActionMap($"GameplayP{playerIndex}");
+        jumpAnimObject = GameObject.Find($"Jump animation{playerIndex}");
+        boostAnimObject = GameObject.Find($"Boost animation{playerIndex}");
         carMovementAction = gameplayActionMap.FindAction("CarMovement");
         jumpAction = gameplayActionMap.FindAction("Jump");
         boostAction = gameplayActionMap.FindAction("Boost");
@@ -180,6 +178,7 @@ public class Player1Controller2 : MonoBehaviour
         }
 
         //Jump animation
+
         if (jumpCount == 0 && facingRight)
         {
             jumpAnimClone = Instantiate(jumpAnimObject, transform.position, transform.rotation);
@@ -212,29 +211,59 @@ public class Player1Controller2 : MonoBehaviour
         }
 
         //Double jump flip
-        if (upFlipDirection && !grounded && facingRight && !usedFlip)
+        if (playerIndex == 1)
         {
-            GetComponent<Rigidbody2D>().AddTorque(-flipRotateForce * 100, ForceMode2D.Force);
-            GetComponent<Rigidbody2D>().AddForce(transform.right * flipForce);
-            StartCoroutine(SecondWait2());
+            if (upFlipDirection && !grounded && facingRight && !usedFlip)
+            {
+                GetComponent<Rigidbody2D>().AddTorque(-flipRotateForce * 100, ForceMode2D.Force);
+                GetComponent<Rigidbody2D>().AddForce(transform.right * flipForce);
+                StartCoroutine(SecondWait2());
+            }
+            else if (downFlipDirection && !grounded && facingRight && !usedFlip)
+            {
+                GetComponent<Rigidbody2D>().AddTorque(flipRotateForce * 100, ForceMode2D.Force);
+                GetComponent<Rigidbody2D>().AddForce(-transform.right * flipForce);
+                StartCoroutine(SecondWait2());
+            }
+            else if (upFlipDirection && !grounded && !facingRight && !usedFlip)
+            {
+                GetComponent<Rigidbody2D>().AddTorque(flipRotateForce * 100, ForceMode2D.Force);
+                GetComponent<Rigidbody2D>().AddForce(transform.right * flipForce);
+                StartCoroutine(SecondWait2());
+            }
+            else if (downFlipDirection && !grounded && !facingRight && !usedFlip)
+            {
+                GetComponent<Rigidbody2D>().AddTorque(-flipRotateForce * 100, ForceMode2D.Force);
+                GetComponent<Rigidbody2D>().AddForce(-transform.right * flipForce);
+                StartCoroutine(SecondWait2());
+            }
         }
-        else if (downFlipDirection && !grounded && facingRight && !usedFlip)
+        else if (playerIndex == 2)
         {
-            GetComponent<Rigidbody2D>().AddTorque(flipRotateForce * 100, ForceMode2D.Force);
-            GetComponent<Rigidbody2D>().AddForce(-transform.right * flipForce);
-            StartCoroutine(SecondWait2());
-        }
-        else if (upFlipDirection && !grounded && !facingRight && !usedFlip)
-        {
-            GetComponent<Rigidbody2D>().AddTorque(flipRotateForce * 100, ForceMode2D.Force);
-            GetComponent<Rigidbody2D>().AddForce(transform.right * flipForce);
-            StartCoroutine(SecondWait2());
-        }
-        else if (downFlipDirection && !grounded && !facingRight && !usedFlip)
-        {
-            GetComponent<Rigidbody2D>().AddTorque(-flipRotateForce * 100, ForceMode2D.Force);
-            GetComponent<Rigidbody2D>().AddForce(-transform.right * flipForce);
-            StartCoroutine(SecondWait2());
+            if (upFlipDirection && !grounded && facingRight && !usedFlip)
+            {
+                GetComponent<Rigidbody2D>().AddTorque(flipRotateForce * 100, ForceMode2D.Force);
+                GetComponent<Rigidbody2D>().AddForce(-transform.right * flipForce);
+                StartCoroutine(SecondWait2());
+            }
+            else if (downFlipDirection && !grounded && facingRight && !usedFlip)
+            {
+                GetComponent<Rigidbody2D>().AddTorque(-flipRotateForce * 100, ForceMode2D.Force);
+                GetComponent<Rigidbody2D>().AddForce(transform.right * flipForce);
+                StartCoroutine(SecondWait2());
+            }
+            else if (upFlipDirection && !grounded && !facingRight && !usedFlip)
+            {
+                GetComponent<Rigidbody2D>().AddTorque(-flipRotateForce * 100, ForceMode2D.Force);
+                GetComponent<Rigidbody2D>().AddForce(-transform.right * flipForce);
+                StartCoroutine(SecondWait2());
+            }
+            else if (downFlipDirection && !grounded && !facingRight && !usedFlip)
+            {
+                GetComponent<Rigidbody2D>().AddTorque(flipRotateForce * 100, ForceMode2D.Force);
+                GetComponent<Rigidbody2D>().AddForce(transform.right * flipForce);
+                StartCoroutine(SecondWait2());
+            }
         }
     }
     public void OnBoostOn(InputAction.CallbackContext context)
@@ -248,12 +277,26 @@ public class Player1Controller2 : MonoBehaviour
     public void Boosting()
     {
         boostAnim = boostAnimObject.GetComponent<Animator>();
-        if (isBoostPressed)
+        if (playerIndex == 1)
         {
-            GetComponent<Rigidbody2D>().AddForce(transform.right * boostForce);
-            boostAnim.SetBool("IsBoosting", true);
+            if (isBoostPressed)
+            {
+                GetComponent<Rigidbody2D>().AddForce(transform.right * boostForce);
+                boostAnim.SetBool("IsBoosting", true);
+            }
+            else boostAnim.SetBool("IsBoosting", false);
         }
-        else boostAnim.SetBool("IsBoosting", false);
+        else if (playerIndex == 2)
+        {
+            if (isBoostPressed)
+            {
+                GetComponent<Rigidbody2D>().AddForce(-transform.right * boostForce);
+                boostAnim.SetBool("IsBoosting", true);
+            }
+            else boostAnim.SetBool("IsBoosting", false);
+        }
+
+
     }
     public void OnFlip(InputAction.CallbackContext context)
     {
@@ -268,9 +311,19 @@ public class Player1Controller2 : MonoBehaviour
     }
     public void AccInputControl()
     {
-        if (grounded)
+        if (playerIndex == 1)
         {
-            GetComponent<Rigidbody2D>().AddForce(transform.right * Acceleration * Direction.y);
+            if (grounded)
+            {
+                GetComponent<Rigidbody2D>().AddForce(transform.right * Acceleration * Direction.y);
+            }
+        }
+        else if (playerIndex == 2)
+        {
+            if (grounded)
+            {
+                GetComponent<Rigidbody2D>().AddForce(-transform.right * Acceleration * Direction.y);
+            }
         }
     }
     public void Rotate()
