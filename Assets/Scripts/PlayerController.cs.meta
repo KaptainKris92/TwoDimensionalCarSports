@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 751cca80211a7fa4ba67236ee311754d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - playerControlsAsset: {fileID: -944628639613478452, guid: 91e19b42cbdaaf640b0c5f751b371fe9,
+      type: 3}
+  - boostAnimObject: {instanceID: 0}
+  - groundCheck: {instanceID: 0}
+  - groundCheck2: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

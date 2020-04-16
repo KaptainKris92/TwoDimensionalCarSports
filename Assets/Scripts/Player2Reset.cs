@@ -4,28 +4,18 @@ using UnityEngine;
 
 public class Player2Reset : MonoBehaviour
 {
-
     Vector3 originalPosP1;
     Quaternion originalRotP1;
 
     public bool rightScored;
     public bool leftScored;
-
-
-
-    // Use this for initialization
     void Start()
     {
-
         originalPosP1 = gameObject.transform.position;
-
-
+        originalRotP1 = gameObject.transform.rotation;
     }
-
-    // Update is called once per frame
     void FixedUpdate()
     {
-
         //Gets scored boolean value from RightTriggerScript.cs
         GameObject TriggerRight = GameObject.Find("TriggerRight");
         RightTriggerScript rightTriggerScript = TriggerRight.GetComponent<RightTriggerScript>();
@@ -40,51 +30,21 @@ public class Player2Reset : MonoBehaviour
             StartCoroutine(SecondWait());
             rightScored = false;
         }
-
         if (leftScored)
         {
             StartCoroutine(SecondWait2());
             leftScored = false;
         }
-
-        
-
-        //if (rightScored)
-        //{
-        //    GetComponent<Rigidbody2D>().velocity = Vector3.zero; //Get Rigidbody and set velocity to (0f, 0f, 0f)
-        //    gameObject.transform.position = originalPosP1;
-        //    gameObject.transform.rotation = originalRotP1;
-
-        //    rightScored = false;
-        //}
-
-        //if (leftScored)
-        //{
-        //    GetComponent<Rigidbody2D>().velocity = Vector3.zero; //Get Rigidbody and set velocity to (0f, 0f, 0f)
-        //    gameObject.transform.position = originalPosP1;
-        //    gameObject.transform.rotation = originalRotP1;
-
-        //    leftScored = false;
-        //}
-
     }
-
     private IEnumerator SecondWait()
     {
-
         yield return new WaitForSeconds(3f);
         GetComponent<Rigidbody2D>().velocity = Vector3.zero; //Get Rigidbody and set velocity to (0f, 0f, 0f)
         gameObject.transform.position = originalPosP1;
         gameObject.transform.rotation = originalRotP1;
 
-
-
         rightScored = false;
-
-
-
     }
-
     private IEnumerator SecondWait2()
     {
         yield return new WaitForSeconds(3f);
@@ -92,12 +52,6 @@ public class Player2Reset : MonoBehaviour
         gameObject.transform.position = originalPosP1;
         gameObject.transform.rotation = originalRotP1;
 
-
-
-
         leftScored = false;
-
-
-
     }
 }
