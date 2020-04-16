@@ -301,20 +301,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 751cca80211a7fa4ba67236ee311754d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerIndex: 1
-  playerControls: {fileID: -944628639613478452, guid: 91e19b42cbdaaf640b0c5f751b371fe9,
+  playerControlsAsset: {fileID: -944628639613478452, guid: 91e19b42cbdaaf640b0c5f751b371fe9,
     type: 3}
   isBoostPressed: 0
-  jumpAnimObject: {fileID: 0}
   jumpCount: 0
-  boostPressed: 0
-  boostAnimObject: {fileID: 0}
+  boostAnimObject: {fileID: 3763000795200328699}
   Speed: 0
   maxSpeed: 5
   Acceleration: 75
   grounded: 0
   groundCheck: {fileID: 3763000794515713639}
   groundCheck2: {fileID: 3763000796186154472}
+  groundRadius: 0.1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 512
@@ -328,6 +326,8 @@ MonoBehaviour:
   flipRotateForce: 100
   facingRight: 1
   upright: 1
+  playerIndex: 0
+  playerObject: PlayerOne
 --- !u!1 &3763000795116123990
 GameObject:
   m_ObjectHideFlags: 0
