@@ -301,8 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 751cca80211a7fa4ba67236ee311754d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerControlsAsset: {fileID: -944628639613478452, guid: 91e19b42cbdaaf640b0c5f751b371fe9,
-    type: 3}
+  playerControlsAsset: {fileID: 0}
   isBoostPressed: 0
   jumpCount: 0
   boostAnimObject: {fileID: 3763000795200328699}
@@ -327,7 +326,7 @@ MonoBehaviour:
   facingRight: 1
   upright: 1
   playerIndex: 0
-  playerObject: PlayerOne
+  playerObject: 
 --- !u!1 &3763000795116123990
 GameObject:
   m_ObjectHideFlags: 0

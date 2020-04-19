@@ -1,24 +1,15 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+/*using UnityEngine.InputSystem.Users;*/
 using UnityEngine.SceneManagement;
+/*using System.Linq;*/
 
 public class PlayerController : MonoBehaviour 
 {   
-    //Control inputs
-    [SerializeField] public InputActionAsset playerControlsAsset;
-
-    private InputAction rotationAction;
-    private InputAction accelDecelAction;
-    private InputAction jumpAction;
-    private InputAction flipAction;
-    private InputAction boostAction;
-    private InputAction flipDirectionAction;
-    private InputAction restartAction;
-    private InputAction escAction;
-    public Vector2 Direction { get; set; } //Rotation x and y input
-    public Vector2 Direction2 { get; set; } //AccelDecel x and y input
-    public Vector2 FlipDirection { get; set; } //FlipDirection x and y input
+    private Vector2 inputVectorAcc;
+    private Vector2 inputVectorRot;
+    private Vector2 inputVectorFlip;
 
     [HideInInspector] public bool isBoostPressed = false; 
 
@@ -42,11 +33,11 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public float Acceleration = 75f; //How fast object reaches max speed
 
     // Checking if grounded
-    [HideInInspector] public bool grounded = false;
-    public Transform groundCheck;
-    public Transform groundCheck2;
-    public float groundRadius = 0.1f;
-    [HideInInspector] public LayerMask whatIsGround;
+    [SerializeField] public bool grounded = false;
+    [SerializeField] public Transform groundCheck;
+    [SerializeField] public Transform groundCheck2;
+    [SerializeField] public float groundRadius = 0.1f;
+    [SerializeField] public LayerMask whatIsGround;
 
     // Air speed & variables (Jump & Boost)
     [HideInInspector] public float vSpeed;  //Vertical speed
@@ -68,24 +59,9 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] private bool downFlipDirection = false;
     [HideInInspector] private bool usedFlip = false;
 
-
     [SerializeField] public int playerIndex;
     [SerializeField] public string playerObject;
-    public void FixedUpdate()
-    {
-        InitialisingVariables();      
-        Rotate();
-        AccInputControl();
-        OnBoost();
-    }
-    public void Update()
-    {
-        CheckUpright();
-        CheckGrounded();
-        UpFlipCheck();
-        DownFlipCheck();
-        GetPlayerIndex();
-    }
+
     public IEnumerator SecondWait()
     {
         yield return new WaitForSeconds(0.05f);
@@ -97,133 +73,116 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         usedFlip = true;
     } // Waits momentarily after flip, then registers that the double jump flip has been used.
+
+    public void SetInputVectorAcc(Vector2 direction)
+    {
+        inputVectorAcc = direction;
+    }
+    public void SetInputVectorRot(Vector2 direction)
+    {
+        inputVectorRot = direction;
+    }
+    public void SetInputVectorFlip(Vector2 direction)
+    {
+        inputVectorFlip = direction;
+    }
+    public void FixedUpdate()
+    {
+        Boost();
+    }
     private void Awake()
     {
-        playerObject = gameObject.name;
-        AssignIndex();
-        var gameplayActionMap = playerControlsAsset.FindActionMap($"GameplayP{playerIndex}");
+        playerObject = gameObject.name; //Retrieves the name of each player object — PlayerOne for Player 1, PlayerTwo for Player 2
 
+        AssignIndex(); //Gives Player 1 an index of 1 and Player 2 an index of 2
+        
+        /*var gameplayActionMap = playerControlsAsset.FindActionMap($"GameplayP{playerIndex}"); //Assigns an action map to each player (GameplayP1 for player 1, GameplayP2 for player 2)*/
+
+        //Finds animation objects for each player
         jumpAnimObject = GameObject.Find($"Jump animation{playerIndex}");
         boostAnimObject = GameObject.Find($"Boost animation{playerIndex}");
-        rotationAction = gameplayActionMap.FindAction("Rotation");
-        accelDecelAction = gameplayActionMap.FindAction("AccelDecel");
-        jumpAction = gameplayActionMap.FindAction("Jump");
-        boostAction = gameplayActionMap.FindAction("Boost");
-        flipAction = gameplayActionMap.FindAction("FlipCar");
-        flipDirectionAction = gameplayActionMap.FindAction("FlipDirection");
-        restartAction = gameplayActionMap.FindAction("Restart");
-        escAction = gameplayActionMap.FindAction("EscMenu");
-
-        rotationAction.performed += OnRotation;
-        rotationAction.canceled += OnRotation;
-        accelDecelAction.performed += OnAccelDecel;
-        accelDecelAction.canceled += OnAccelDecel;
-        jumpAction.performed += OnJump;
-        jumpAction.canceled -= OnJump;
-        boostAction.started += OnBoostOn;
-        boostAction.performed += OnBoostOn;
-        boostAction.canceled += OnBoostOff;
-        flipAction.performed += OnFlipCar;
-        flipDirectionAction.performed += OnFlipDirection;
-        flipDirectionAction.canceled += OnFlipDirection;
-        restartAction.performed += OnRestart;
-        escAction.performed += OnEscMenu;
     }
     public void AssignIndex()
     {
-        if (playerObject == "PlayerOne") { playerIndex = 1; } else if (playerObject == "PlayerTwo") { playerIndex = 2; }
-    }
+        if (playerObject == "PlayerOne") { playerIndex = 0; } else if (playerObject == "PlayerTwo") { playerIndex = 1; }
+    } //Gives Player 1 an index of 1 and Player 2 an index of 2
     public int GetPlayerIndex()
     {
         return playerIndex;
     }
-    public void OnEnable()
-    {
-        playerControlsAsset.Enable();
-    }
-    public void OnDisable()
-    {
-        playerControlsAsset.Disable();
-    }
     public void UpFlipCheck() //Checks if up arrow key held + jump (slash key) pressed 
     {
-        if (FlipDirection.y > 0) upFlipDirection = true;
+        if (inputVectorFlip.y > 0) upFlipDirection = true;
         else upFlipDirection = false;
     }
     public void DownFlipCheck()  //Checks if down arrow key held + jump (slash key) pressed 
     {
-        if (FlipDirection.y < 0) downFlipDirection = true;
+        if (inputVectorFlip.y < 0) downFlipDirection = true;
         else downFlipDirection = false;
     }
-    public void OnRotation(InputAction.CallbackContext context)
+    public void Jump()
     {
-        var direction = context.ReadValue<Vector2>();
-        Direction = new Vector2(direction.x, direction.y);
-    }
-    public void OnAccelDecel(InputAction.CallbackContext context)
-    {
-        var direction = context.ReadValue<Vector2>();
-        Direction2 = new Vector2(direction.x, direction.y);
-    }
-    public void OnJump(InputAction.CallbackContext context)
-    {
-            //Player movement
-            if ((grounded || !doubleJump) && facingRight)
-            {
-                GetComponent<Rigidbody2D>().AddForce(transform.up * jumpForce);
-                StartCoroutine(SecondWait());
+        //Player movement
+        if ((grounded || !doubleJump) && facingRight)
+        {
+            GetComponent<Rigidbody2D>().AddForce(transform.up * jumpForce);
+            StartCoroutine(SecondWait());
 
-                if (!doubleJump && !grounded)
-                {
-                    doubleJump = true;
-                    StartCoroutine(SecondWait2());
-                }
-            }
-            if ((grounded || !doubleJump) && !facingRight)
+            if (!doubleJump && !grounded)
             {
-                GetComponent<Rigidbody2D>().AddForce(-transform.up * jumpForce);
-                StartCoroutine(SecondWait());
+                doubleJump = true;
+                StartCoroutine(SecondWait2());
+            }
+            
+        }
+        else if
+      ((grounded || !doubleJump) && !facingRight)
+        {
+            GetComponent<Rigidbody2D>().AddForce(-transform.up * jumpForce);
+            StartCoroutine(SecondWait());
 
-                if (!doubleJump && !grounded)
-                {
-                    doubleJump = true;
-                }
+            if (!doubleJump && !grounded)
+            {
+                doubleJump = true;
             }
+           
+        }
 
-            //Jump animation
-            if (jumpCount == 0 && facingRight)
-            {
-                jumpAnimClone = Instantiate(jumpAnimObject, transform.position, transform.rotation);
-                animClone = jumpAnimClone.GetComponent<Animator>();
-                animClone.SetBool("IsJumping", true);
-            }
-            else if (jumpCount == 1 && facingRight)
-            {
-                Destroy(jumpAnimClone, 0.05f);
-                animClone.SetBool("IsJumping", false);
-                jumpAnimClone2 = Instantiate(jumpAnimObject, transform.position, transform.rotation);
-                animClone2 = jumpAnimClone2.GetComponent<Animator>();
-                animClone2.SetBool("IsJumping", true);
-                Destroy(jumpAnimClone2, 0.5f);
-            }
-            if (jumpCount == 0 && !facingRight)
-            {
-                jumpAnimClone = Instantiate(jumpAnimObject, transform.position, transform.rotation * Quaternion.Euler(180f, 0f, 0f));
-                animClone = jumpAnimClone.GetComponent<Animator>();
-                animClone.SetBool("IsJumping", true);
-            }
-            else if (jumpCount == 1 && !facingRight)
-            {
-                Destroy(jumpAnimClone, 0.05f);
-                animClone.SetBool("IsJumping", false);
-                jumpAnimClone2 = Instantiate(jumpAnimObject, transform.position, transform.rotation * Quaternion.Euler(180f, 0f, 0f));
-                animClone2 = jumpAnimClone2.GetComponent<Animator>();
-                animClone2.SetBool("IsJumping", true);
-                Destroy(jumpAnimClone2, 0.5f);
-            }
 
-            //Double jump flip
-            if (playerIndex == 1)
+        //Jump animation
+        if (jumpCount == 0 && facingRight)
+        {
+            jumpAnimClone = Instantiate(jumpAnimObject, transform.position, transform.rotation);
+            animClone = jumpAnimClone.GetComponent<Animator>();
+            animClone.SetBool("IsJumping", true);
+        }
+        else if (jumpCount == 1 && facingRight)
+        {
+            Destroy(jumpAnimClone, 0.05f);
+            animClone.SetBool("IsJumping", false);
+            jumpAnimClone2 = Instantiate(jumpAnimObject, transform.position, transform.rotation);
+            animClone2 = jumpAnimClone2.GetComponent<Animator>();
+            animClone2.SetBool("IsJumping", true);
+            Destroy(jumpAnimClone2, 0.5f);
+        }
+        if (jumpCount == 0 && !facingRight)
+        {
+            jumpAnimClone = Instantiate(jumpAnimObject, transform.position, transform.rotation * Quaternion.Euler(180f, 0f, 0f));
+            animClone = jumpAnimClone.GetComponent<Animator>();
+            animClone.SetBool("IsJumping", true);
+        }
+        else if (jumpCount == 1 && !facingRight)
+        {
+            Destroy(jumpAnimClone, 0.05f);
+            animClone.SetBool("IsJumping", false);
+            jumpAnimClone2 = Instantiate(jumpAnimObject, transform.position, transform.rotation * Quaternion.Euler(180f, 0f, 0f));
+            animClone2 = jumpAnimClone2.GetComponent<Animator>();
+            animClone2.SetBool("IsJumping", true);
+            Destroy(jumpAnimClone2, 0.5f);
+        }
+
+        //Double jump flip
+        if (playerIndex == 0)
             {
                 if (upFlipDirection && !grounded && facingRight && !usedFlip)
                 {
@@ -250,7 +209,7 @@ public class PlayerController : MonoBehaviour
                     StartCoroutine(SecondWait2());
                 }
             }
-            else if (playerIndex == 2)
+            else if (playerIndex == 1)
             {
                 if (upFlipDirection && !grounded && facingRight && !usedFlip)
                 {
@@ -278,19 +237,21 @@ public class PlayerController : MonoBehaviour
                 }
         }
     }
-    public void OnBoostOn(InputAction.CallbackContext context)
+    public void BoostOn()
     {
         isBoostPressed = true;
+        Debug.Log($"Boost is {isBoostPressed}");
     }
-    public void OnBoostOff(InputAction.CallbackContext context)
+    public void BoostOff()
     {
         isBoostPressed = false;
+        Debug.Log($"Boost is {isBoostPressed}");
     }
-    public void OnBoost()
+    public void Boost()
     {
         boostAnim = boostAnimObject.GetComponent<Animator>();
 
-        if (playerIndex == 1)
+        if (playerIndex == 0)
         {
             if (isBoostPressed)
             {
@@ -299,7 +260,7 @@ public class PlayerController : MonoBehaviour
             }
             else boostAnim.SetBool("IsBoosting", false);
         }
-        else if (playerIndex == 2)
+        else if (playerIndex == 1)
         {
             if (isBoostPressed)
             {
@@ -309,34 +270,31 @@ public class PlayerController : MonoBehaviour
             else boostAnim.SetBool("IsBoosting", false);
         }
     }
-    public void OnFlipCar(InputAction.CallbackContext context)
-    {if (context.performed)
+    public void FlipCar()
+    {
+        if (!grounded)
         {
-            if (!grounded)
-            {
-                upright = !upright;
-                Vector3 theScale2 = transform.localScale;
-                theScale2.y *= -1;
-                transform.localScale = theScale2;
-                facingRight = !facingRight;
-            }
+            upright = !upright;
+            Vector3 theScale2 = transform.localScale;
+            theScale2.y *= -1;
+            transform.localScale = theScale2;
+            facingRight = !facingRight;
         }
-        
     }
     public void AccInputControl()
     {
-        if (playerIndex == 1)
+        if (playerIndex == 0)
         {
             if (grounded)
             {
-                GetComponent<Rigidbody2D>().AddForce(transform.right * Acceleration * Direction2.y);
+                GetComponent<Rigidbody2D>().AddForce(transform.right * Acceleration * inputVectorAcc.y);
             }
         }
-        else if (playerIndex == 2)
+        else if (playerIndex == 1)
         {
             if (grounded)
             {
-                GetComponent<Rigidbody2D>().AddForce(-transform.right * Acceleration * Direction2.y);
+                GetComponent<Rigidbody2D>().AddForce(-transform.right * Acceleration * inputVectorAcc.y);
             }
         }
     }
@@ -344,8 +302,8 @@ public class PlayerController : MonoBehaviour
     {
         if (!grounded)
         {
-            GetComponent<Rigidbody2D>().AddTorque(rotationSpeed * -Direction.x * 5, ForceMode2D.Force);
-            transform.Rotate(0, 0, -Direction.x * rotationSpeed);
+            GetComponent<Rigidbody2D>().AddTorque(rotationSpeed * -inputVectorRot.x * 5, ForceMode2D.Force);
+            transform.Rotate(0, 0, -inputVectorRot.x * rotationSpeed);
         }
     } // Rotate the car using "left" & "right" arrow keys, or the x axis of left stick on gamepad
     public void InitialisingVariables()
@@ -378,25 +336,14 @@ public class PlayerController : MonoBehaviour
             upright = false;
         }
     }
-    public void OnFlipDirection(InputAction.CallbackContext context)
+    public void Restart()
     {
-        var direction = context.ReadValue<Vector2>();
-        FlipDirection = new Vector2(direction.x, direction.y);
-    } //Checking if Up or Down "FlipDirection" inputs are held
-    public void OnRestart(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            Debug.Log("Restart key pressed.");
-        }
-        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Debug.Log("Restart key pressed.");
+
     } //Resets the scene when the "Restart" menu is pressed.
-    public void OnEscMenu(InputAction.CallbackContext context)
+    public void EscMenu()
     {
-        if (context.performed)
-        {
-            SceneManager.LoadScene(1);
-        }
+        SceneManager.LoadScene(1);
     } //Goes back to main menu when "EscMenu" action is pressed. 
 }
